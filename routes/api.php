@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Domain\Address\Controllers\CityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,17 @@ Route::group(['middleware' => ['jwt.verify'], 'prefix' => 'auth'], function () {
     Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
 
     Route::post('me', [AuthController::class, 'me'])->name('me');
+
+});
+
+Route::group(['middleware' => 'jwt.auth'], function () {
+
+    Route::get('cidades', [CityController::class, 'index'])->name('index');
+
+    Route::post('cidades', [CityController::class, 'store'])->name('store');
+
+    Route::put('cidades/{id}', [CityController::class, 'update'])->name('update');
+
+    Route::delete('cidades/{id}', [CityController::class, 'destroy'])->name('destroy');
+
 });
