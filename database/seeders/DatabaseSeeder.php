@@ -57,5 +57,7 @@ class DatabaseSeeder extends Seeder
             $ufModel->name = $name;
             $ufModel->save();
         }
+
+        \App\Domain\Doctor\Models\Doctor::factory(10)->create();
     }
 }
