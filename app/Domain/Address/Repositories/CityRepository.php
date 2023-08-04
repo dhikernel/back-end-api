@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Address\Repositories;
 
 use App\Domain\Address\Models\City;
+use App\Domain\Doctor\Models\Doctor;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -47,5 +48,12 @@ class CityRepository
     public function destroy(int $id): bool
     {
         return (bool) City::destroy($id);
+    }
+
+    public function findCityAndDoctor(int $id)
+    {
+        $doctors = Doctor::where('city_id', $id)->get();
+
+        return $doctors;
     }
 }

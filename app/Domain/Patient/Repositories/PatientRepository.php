@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Patient\Repositories;
 
 use App\Domain\Doctor\Models\Doctor;
+use App\Domain\Doctor\Models\DoctorAndPatient;
 use App\Domain\Patient\Models\Patient;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -26,7 +27,7 @@ class PatientRepository
         return QueryBuilder::for(Patient::class)
             ->allowedFilters([
                 AllowedFilter::partial('name'),
-                AllowedFilter::exact('specialty'),
+                AllowedFilter::exact('cpf'),
             ])
             ->get();
     }
@@ -51,7 +52,12 @@ class PatientRepository
     {
         $updatePatient = Patient::find($id);
 
-        return $updatePatient->fill($data)->save();
+        $updatePatient->fill($data)->save();
+
+        return response()->json([
+            "message" => "Paciente atualizado com sucesso!",
+            "data" => $updatePatient
+        ], 204);
     }
 
     public function destroy(int $id): bool
@@ -66,5 +72,21 @@ class PatientRepository
         $patients = $doctor->patients;
 
         return $patients;
+    }
+
+    public function createDoctorAndPatient(array $request): DoctorAndPatient
+    {
+        try {
+            DB::beginTransaction();
+
+            $bindPatientAndDoctor = DoctorAndPatient::create($request);
+
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollback();
+            throw new \Exception($exception->getMessage());
+        }
+
+        return $bindPatientAndDoctor;
     }
 }

@@ -25,4 +25,22 @@ class DoctorAndPatient extends Model
     protected $primaryKey = self::PRIMARY_KEY;
 
     protected $table = self::TABLE_NAME;
+
+    public function doctors()
+    {
+        return $this->hasOne(
+            Doctor::class,
+            'doctor_id',
+            'id'
+        );
+    }
+
+    public function patients()
+    {
+        return $this->hasOne(
+            Patient::class,
+            'patient_id',
+            'id'
+        );
+    }
 }

@@ -59,4 +59,17 @@ class PatientController extends Controller
                 ->setStatusCode(Response::HTTP_NOT_FOUND, Response::$statusTexts[Response::HTTP_NOT_FOUND]);
         }
     }
+
+    public function bindPatientAndDoctor(Request $request, int $id)
+    {
+        try {
+            if (!empty($this->repository)) {
+                return response()->json([$this->repository->createDoctorAndPatient($request->all(), $id)])
+                    ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
+            }
+        } catch (\Exception $exception) {
+            return response()->json($exception->getMessage())
+                ->setStatusCode(Response::HTTP_NOT_FOUND, Response::$statusTexts[Response::HTTP_NOT_FOUND]);
+        }
+    }
 }

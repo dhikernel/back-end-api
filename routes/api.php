@@ -34,6 +34,8 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
     Route::get('cidades', [CityController::class, 'index'])->name('city.index');
 
+    Route::get('cidades/{id}/medicos', [CityController::class, 'getCityDoctor'])->name('city.doctor');
+
     Route::post('cidades', [CityController::class, 'store'])->name('city.store');
 
     Route::put('cidade/{id}', [CityController::class, 'update'])->name('city.update');
@@ -48,8 +50,14 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
     Route::delete('medico/{id}', [DoctorController::class, 'destroy'])->name('doctor.destroy');
 
+    Route::get('pacientes', [PatientController::class, 'index'])->name('city.index');
+
+    Route::post('pacientes', [PatientController::class, 'store'])->name('patient.store');
+
     Route::put('pacientes/{id_paciente}', [PatientController::class, 'update'])->name('patient.update');
 
     Route::get('medicos/{id}/pacientes', [PatientController::class, 'patient'])->name('doctor.patient');
+
+    Route::post('medicos/{id}/pacientes', [PatientController::class, 'bindPatientAndDoctor'])->name('bind.doctor.patient');
 
 });
