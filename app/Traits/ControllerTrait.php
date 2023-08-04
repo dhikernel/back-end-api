@@ -93,7 +93,7 @@ trait ControllerTrait
             if (!empty($this->repository)) {
                 $returnUpdate = $this->repository->update($request->all(), $id);
                 return response()->json([$returnUpdate])
-                    ->setStatusCode(Response::HTTP_NO_CONTENT, Response::$statusTexts[Response::HTTP_NO_CONTENT]);
+                    ->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
             }
         } catch (\Exception $exception) {
             return response()->json($exception->getMessage())
