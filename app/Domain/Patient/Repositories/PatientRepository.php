@@ -81,6 +81,11 @@ class PatientRepository
 
             $bindPatientAndDoctor = DoctorAndPatient::create($request);
 
+            $bindPatientAndDoctor->load(
+                'doctors',
+                'patients'
+            );
+
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollback();

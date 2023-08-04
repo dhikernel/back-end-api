@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Doctor\Models;
 
+use App\Domain\Patient\Models\Patient;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,8 +31,9 @@ class DoctorAndPatient extends Model
     {
         return $this->hasOne(
             Doctor::class,
-            'doctor_id',
-            'id'
+            'id',
+            'doctor_id'
+
         );
     }
 
@@ -39,8 +41,9 @@ class DoctorAndPatient extends Model
     {
         return $this->hasOne(
             Patient::class,
-            'patient_id',
-            'id'
+            'id',
+            'patient_id'
+
         );
     }
 }
