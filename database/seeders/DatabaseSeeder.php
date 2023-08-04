@@ -59,5 +59,6 @@ class DatabaseSeeder extends Seeder
         }
 
         \App\Domain\Doctor\Models\Doctor::factory(10)->create();
+        \App\Domain\Patient\Models\Patient::factory(10)->create();
     }
 }
