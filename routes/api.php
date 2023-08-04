@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Domain\Address\Controllers\CityController;
 use App\Domain\Doctor\Controllers\DoctorController;
+use App\Domain\Patient\Controllers\PatientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,5 +47,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::put('medico/{id}', [DoctorController::class, 'update'])->name('doctor.update');
 
     Route::delete('medico/{id}', [DoctorController::class, 'destroy'])->name('doctor.destroy');
+
+    Route::put('pacientes/{id_paciente}', [PatientController::class, 'update'])->name('patient.update');
+
+    Route::get('medicos/{id}/pacientes', [PatientController::class, 'patient'])->name('doctor.patient');
 
 });
